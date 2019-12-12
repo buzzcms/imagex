@@ -1,4 +1,4 @@
-cases = %{
+transform_cases = %{
   "w_100" => "b_white,c_scale,w_100",
   "w_100,q_80" => "b_white,c_scale,q_80,w_100",
   "w_100,q_80,c_scale" => "b_white,c_scale,q_80,w_100",
@@ -7,28 +7,51 @@ cases = %{
   "c_fit,q_80,w_100,b_black" => "b_black,c_fit,q_80,w_100",
   "c_fit,c_scale,q_80,w_100,b_black" => "b_black,c_scale,q_80,w_100",
   "c_scale,c_fit,q_80,w_100,b_black" => "b_black,c_fit,q_80,w_100",
-  "c_scale,c_fit,q_80,w_100,b_black,xxx" => "b_black,c_fit,q_80,w_100"
+  "c_scale,c_fit,q_80,w_100,b_black,xxx" => "b_black,c_fit,q_80,w_100",
+  "c_scale,c_fit,q_80,w_100,h_111,b_black,xxx" => "b_black,c_fit,q_80,w_100"
+}
+
+bucket = "bucket"
+
+file_cases = %{
+  "w_100/test.jpg" => "/resize?extend=white&file=#{bucket}%2Ftest.jpg&width=100",
+  "w_100,q_80/test.jpg" => "/resize?extend=white&file=#{bucket}%2Ftest.jpg&quality=80&width=100",
+  "w_100,q_80,c_scale/test.jpg" =>
+    "/resize?extend=white&file=#{bucket}%2Ftest.jpg&quality=80&width=100",
+  "q_80,w_100/test.jpg" => "/resize?extend=white&file=#{bucket}%2Ftest.jpg&quality=80&width=100",
+  "c_fit,q_80,w_100/test.jpg" =>
+    "/fit?extend=white&file=#{bucket}%2Ftest.jpg&quality=80&width=100",
+  "c_fit,q_80,w_100,b_black/test.jpg" =>
+    "/fit?extend=black&file=#{bucket}%2Ftest.jpg&quality=80&width=100",
+  "c_fit,c_scale,q_80,w_100,b_black/test.jpg" =>
+    "/resize?extend=black&file=#{bucket}%2Ftest.jpg&quality=80&width=100",
+  "c_scale,c_fit,q_80,w_100,b_black/test.jpg" =>
+    "/fit?extend=black&file=#{bucket}%2Ftest.jpg&quality=80&width=100",
+  "c_scale,c_fit,q_80,w_100,b_black,xxx/test.jpg" =>
+    "/fit?extend=black&file=#{bucket}%2Ftest.jpg&quality=80&width=100"
 }
 
 defmodule Imagex.ImaginaryParamsTest do
   use Imagex.DataCase
-  alias Imagex.TransformParser
+  import Imagex.TransformParser
 
-  describe "Normalize transform path" do
-    Enum.each(cases, fn {input, expected_output} ->
+  describe "to normalized transform" do
+    Enum.each(transform_cases, fn {input, expected_output} ->
       test "#{input}" do
-        assert %{transform_path: transform_path} = TransformParser.parse_transform(unquote(input))
-        assert transform_path == unquote(expected_output)
+        transform = unquote(input) |> to_map |> to_transform()
+        assert transform == unquote(expected_output)
       end
     end)
   end
 
-  describe "Parse imaginary request" do
-    assert %{
-             imaginary_params: %Imagex.ImaginaryParams{
-               action: "fit",
-               params: %{"extend" => "black", "quality" => "80", "width" => "100"}
-             }
-           } = TransformParser.parse_transform("c_scale,c_fit,q_80,w_100,b_black")
+  describe "to imaginary request url" do
+    Enum.each(file_cases, fn {input, expected_output} ->
+      test "#{input}" do
+        [unordered_transform, id] = String.split(unquote(input), "/")
+        map = to_map(unordered_transform)
+        request_url = to_request_url(%{map: map, bucket: unquote(bucket), id: id})
+        assert request_url == unquote(expected_output)
+      end
+    end)
   end
 end

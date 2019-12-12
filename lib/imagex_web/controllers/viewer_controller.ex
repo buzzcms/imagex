@@ -1,23 +1,19 @@
 defmodule ImagexWeb.ViewerController do
   use ImagexWeb, :controller
-  alias Imagex.TransformParser
-  alias Imagex.ImaginaryParams
+  import Imagex.TransformParser
 
-  def index(conn, %{"id" => id, "transform" => transform, "bucket" => _bucket}) do
-    %{
-      transform_path: _transform_path,
-      imaginary_params: %ImaginaryParams{
-        action: action,
-        params: params
-      }
-    } = TransformParser.parse_transform(transform)
+  def index(conn, %{"id" => id, "transform" => unordered_transform, "bucket" => bucket}) do
+    map = to_map(unordered_transform)
+    transform = to_transform(map)
+    request_url = to_request_url(%{map: map, id: id, bucket: bucket})
 
-    # TODO: Use transform_path to check if image is generated
+    IO.inspect(%{
+      map: map,
+      transform: transform,
+      request_url: request_url
+    })
 
-    query = params |> Map.merge(%{"file" => id})
-
-    %{body: body} =
-      HTTPoison.get!("http://172.105.123.14:9000/#{action}?#{URI.encode_query(query)}")
+    %{body: body} = HTTPoison.get!(request_url)
 
     # TODO: Save file & send
     conn |> put_resp_content_type("image/png") |> send_resp(200, body)

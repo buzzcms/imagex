@@ -6,5 +6,5 @@ Self-host image service, like Cloudinary
 
 - [ ] Authentication
 - [ ] Dashboard
-- [ ] Restrict transformation to prevent DDOS; example: Attacker can send request with (w_1, w_2, w_3, ...)
+- [x] Restrict transformation to prevent DDOS; example: Attacker can send request with (w_1, w_2, w_3, ...)
 - [ ] ...

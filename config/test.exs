@@ -14,5 +14,8 @@ config :imagex, ImagexWeb.Endpoint,
   http: [port: 4002],
   server: false
 
+config :imagex,
+  imaginary_host: "http://imaginary:9000"
+
 # Print only warnings and errors during test
 config :logger, level: :warn
