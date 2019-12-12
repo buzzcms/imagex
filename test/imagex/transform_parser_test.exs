@@ -6,7 +6,8 @@ cases = %{
   "c_fit,q_80,w_100" => "b_white,c_fit,q_80,w_100",
   "c_fit,q_80,w_100,b_black" => "b_black,c_fit,q_80,w_100",
   "c_fit,c_scale,q_80,w_100,b_black" => "b_black,c_scale,q_80,w_100",
-  "c_scale,c_fit,q_80,w_100,b_black" => "b_black,c_fit,q_80,w_100"
+  "c_scale,c_fit,q_80,w_100,b_black" => "b_black,c_fit,q_80,w_100",
+  "c_scale,c_fit,q_80,w_100,b_black,xxx" => "b_black,c_fit,q_80,w_100"
 }
 
 defmodule Imagex.ImaginaryParamsTest do
