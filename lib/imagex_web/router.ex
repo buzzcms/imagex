@@ -17,6 +17,7 @@ defmodule ImagexWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/:bucket/:transform/:id", ViewerController, :index
   end
 
   # Other scopes may use custom stacks.
