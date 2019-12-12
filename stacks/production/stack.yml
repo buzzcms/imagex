@@ -1,0 +1,11 @@
+version: "3"
+services:
+  imaginary:
+    image: h2non/imaginary:1.1.1
+    volumes:
+      - /var/data:/mnt/data
+    environment:
+      PORT: 9000
+    command: -mount /mnt/data
+    ports:
+      - "9000:9000"
