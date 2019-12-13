@@ -13,15 +13,16 @@ defmodule ImagexWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ImagexWeb do
-    pipe_through :browser
+  # Other scopes may use custom stacks.
+  scope "/api", ImagexWeb do
+    pipe_through :api
 
-    get "/", PageController, :index
     get "/:bucket/:transform/:id", ViewerController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ImagexWeb do
-  #   pipe_through :api
-  # end
+  scope "/", ImagexWeb do
+    pipe_through :browser
+
+    get "/*rest", PageController, :index
+  end
 end
