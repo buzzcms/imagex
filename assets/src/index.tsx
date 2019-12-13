@@ -1,3 +1,4 @@
+import '@reach/dialog/styles.css'
 import '@emotion/core'
 
 import React from 'react'

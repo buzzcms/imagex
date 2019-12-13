@@ -37,6 +37,7 @@
     "@emotion/core": "^10.0.22",
     "@hot-loader/react-dom": "^16.11.0",
     "@mdx-js/react": "^1.5.1",
+    "@reach/dialog": "^0.6.4",
     "@types/jest": "24.0.23",
     "@types/node": "^12.12.17",
     "@types/ramda": "^0.26.38",

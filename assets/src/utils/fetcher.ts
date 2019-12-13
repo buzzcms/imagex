@@ -17,7 +17,6 @@ export const fetcher = async (
       },
       ...options,
     })
-    console.log('xxx')
     return r.json()
   } catch (err) {
     console.log(err)
