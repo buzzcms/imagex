@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'theme-ui'
 
 import { Layout } from './components/Layout'
+import BucketsPage from './pages/Buckets'
 import ImagesPage from './pages/Images'
 import LoginPage from './pages/Login'
 import NotFoundPage from './pages/NotFound'
@@ -19,6 +20,9 @@ export default function App() {
             </Route>
             <Route path="/images" exact>
               <ImagesPage />
+            </Route>
+            <Route path="/buckets" exact>
+              <BucketsPage />
             </Route>
             <Route>
               <NotFoundPage />

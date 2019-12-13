@@ -13,7 +13,7 @@ defmodule ImagexWeb.Endpoint do
     at: "/",
     from: :imagex,
     gzip: false,
-    only: ~w(css js favicon.ico robots.txt index.html)
+    only: ~w(css js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -41,6 +41,8 @@ defmodule ImagexWeb.Endpoint do
     store: :cookie,
     key: "_imagex_key",
     signing_salt: "tGGHB+1n"
+
+  plug CORSPlug, origin: ["http://localhost:9000"]
 
   plug ImagexWeb.Router
 end

@@ -2,12 +2,17 @@ defmodule Imagex.Schema.Bucket do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {
+    Jason.Encoder,
+    only: [:id, :name, :secret, :created_at, :modified_at]
+  }
+
   schema "bucket" do
     field :name, :string
     field :secret, :string
     belongs_to :account, Imagex.Schema.Account
-    field :created_at, :utc_datetime
-    field :modified_at, :utc_datetime
+    field :created_at, :naive_datetime
+    field :modified_at, :naive_datetime
   end
 
   @doc false
@@ -15,6 +20,12 @@ defmodule Imagex.Schema.Bucket do
     post
     |> cast(attrs, [:name, :secret, :account_id])
     |> validate_required([:name, :secret, :account_id])
+    |> unique_constraint(:name)
+  end
+
+  def update_changeset(post, attrs) do
+    post
+    |> cast(attrs, [:name, :secret, :account_id])
     |> unique_constraint(:name)
   end
 end

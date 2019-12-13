@@ -17,12 +17,15 @@ defmodule ImagexWeb.Router do
   scope "/api", ImagexWeb do
     pipe_through :api
 
-    get "/:bucket/:transform/:id", ViewerController, :index
+    get "/buckets", BucketController, :index
+    post "/buckets", BucketController, :create
+    put "/buckets/:id", BucketController, :update
   end
 
   scope "/", ImagexWeb do
     pipe_through :browser
 
+    get "/:bucket/:transform/:id", ViewerController, :index
     get "/*rest", PageController, :index
   end
 end

@@ -45,6 +45,7 @@ defmodule Imagex.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:exconstructor, "~> 1.1.0"},
       {:httpoison, "~> 1.6"},
+      {:cors_plug, "~> 2.0"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false}
     ]
   end
