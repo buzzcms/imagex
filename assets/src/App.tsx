@@ -1,16 +1,31 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ThemeProvider } from 'theme-ui'
 
-import { Image } from './components/Image'
+import { Layout } from './components/Layout'
+import ImagesPage from './pages/Images'
+import LoginPage from './pages/Login'
+import NotFoundPage from './pages/NotFound'
 import { theme } from './theme'
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div>
-        <h1>Hello from React</h1>
-        <Image />
-      </div>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route path="/login" exact>
+              <LoginPage />
+            </Route>
+            <Route path="/images" exact>
+              <ImagesPage />
+            </Route>
+            <Route>
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </Layout>
+      </Router>
     </ThemeProvider>
   )
 }
