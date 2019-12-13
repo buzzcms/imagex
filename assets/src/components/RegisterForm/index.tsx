@@ -1,11 +1,15 @@
 /** @jsx jsx */
 
 import { useFormik } from 'formik'
+import { useHistory, useLocation } from 'react-router-dom'
 import { jsx } from 'theme-ui'
 
 import { fetcher } from '~/utils/fetcher'
 
 export function RegisterForm() {
+  const history = useHistory()
+  const location = useLocation()
+  const { from } = location.state || { from: { pathname: '/' } }
   const { values, handleBlur, handleChange, submitForm } = useFormik({
     initialValues: {
       email: 'chauhc@connected.com.vn',
@@ -19,9 +23,9 @@ export function RegisterForm() {
         body: JSON.stringify(values),
       })
       localStorage.setItem('access_token', access_token)
+      history.replace(from)
     },
   })
-
   return (
     <form
       onSubmit={e => {

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 
 import { useFormik } from 'formik'
+import { useHistory, useLocation } from 'react-router-dom'
 import { jsx } from 'theme-ui'
 
 import { fetcher } from '~/utils/fetcher'
@@ -8,6 +9,9 @@ import { fetcher } from '~/utils/fetcher'
 import { FormGroup } from '../FormGroup'
 
 export function LoginForm() {
+  const history = useHistory()
+  const location = useLocation()
+  const { from } = location.state || { from: { pathname: '/' } }
   const { values, handleBlur, handleChange, submitForm } = useFormik({
     initialValues: {
       email: 'chauhc@connected.com.vn',
@@ -19,8 +23,10 @@ export function LoginForm() {
         body: JSON.stringify(values),
       })
       localStorage.setItem('access_token', access_token)
+      history.replace(from)
     },
   })
+
   return (
     <form
       onSubmit={e => {

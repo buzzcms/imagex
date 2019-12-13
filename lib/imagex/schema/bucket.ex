@@ -18,14 +18,14 @@ defmodule Imagex.Schema.Bucket do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:name, :secret, :email_id])
-    |> validate_required([:name, :secret, :email_id])
+    |> cast(attrs, [:name, :secret, :user_id])
+    |> validate_required([:name, :secret, :user_id])
     |> unique_constraint(:name)
   end
 
   def update_changeset(post, attrs) do
     post
-    |> cast(attrs, [:name, :secret, :email_id])
+    |> cast(attrs, [:name, :secret, :user_id])
     |> unique_constraint(:name)
   end
 end

@@ -12,7 +12,7 @@ defmodule Imagex.Schema.Image do
     :size,
     :status,
     :bucket_id,
-    :email_id
+    :user_id
   ]
 
   @optional_fields [:remote_url, :caption]
