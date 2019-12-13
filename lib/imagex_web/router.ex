@@ -13,6 +13,20 @@ defmodule ImagexWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug Imagex.Auth.Pipeline
+  end
+
+  scope "/auth", ImagexWeb do
+    pipe_through [:api, :auth]
+    get("/:provider", AuthController, :request)
+    get("/:provider/callback", AuthController, :callback)
+    post("/:provider/callback", AuthController, :callback)
+
+    post("/register", AuthController, :register)
+    post("/logout", AuthController, :delete)
+  end
+
   # Other scopes may use custom stacks.
   scope "/api", ImagexWeb do
     pipe_through :api

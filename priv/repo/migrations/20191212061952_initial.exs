@@ -2,19 +2,19 @@ defmodule Imagex.Repo.Migrations.Initial do
   use Ecto.Migration
 
   def change do
-    create table(:account) do
-      add :username, :string, null: false
+    create table(:user) do
+      add :email, :string, null: false
       add :password, :string, null: false
       add :created_at, :utc_datetime, null: false, default: fragment("now()")
       add :modified_at, :utc_datetime, null: false, default: fragment("now()")
     end
 
-    create unique_index(:account, :username)
+    create unique_index(:user, :email)
 
     create table(:bucket) do
       add :name, :string, null: false
       add :secret, :text, null: false
-      add :account_id, references(:account), null: false
+      add :user_id, references(:user), null: false
       add :created_at, :utc_datetime, null: false, default: fragment("now()")
       add :modified_at, :utc_datetime, null: false, default: fragment("now()")
     end
@@ -38,7 +38,7 @@ defmodule Imagex.Repo.Migrations.Initial do
         check: "(status IN ('ready', 'download_failed', 'downloaded', 'uploaded'))"
 
       add :bucket_id, references(:bucket), null: false
-      add :account_id, references(:account), null: false
+      add :user_id, references(:user), null: false
       add :created_at, :utc_datetime, null: false, default: fragment("now()")
       add :modified_at, :utc_datetime, null: false, default: fragment("now()")
     end

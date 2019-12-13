@@ -46,7 +46,12 @@ defmodule Imagex.MixProject do
       {:exconstructor, "~> 1.1.0"},
       {:httpoison, "~> 1.6"},
       {:cors_plug, "~> 2.0"},
-      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false}
+      {:ueberauth, "~> 0.6"},
+      {:ueberauth_identity, "~> 0.2"},
+      {:ueberauth_facebook, "~> 0.8"},
+      {:guardian, "~> 2.0"},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
+      {:ex_machina, "~> 2.3", only: :test}
     ]
   end
 

@@ -1,7 +1,7 @@
 defmodule Imagex.Schema.Image do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Imagex.Schema.{Account, Bucket}
+  alias Imagex.Schema.{User, Bucket}
 
   @required_fields [
     :name,
@@ -12,7 +12,7 @@ defmodule Imagex.Schema.Image do
     :size,
     :status,
     :bucket_id,
-    :account_id
+    :email_id
   ]
 
   @optional_fields [:remote_url, :caption]
@@ -44,7 +44,7 @@ defmodule Imagex.Schema.Image do
     field :size, :decimal
     field :status, :string
     belongs_to :bucket, Bucket
-    belongs_to :account, Account
+    belongs_to :user, User
     field :created_at, :utc_datetime
     field :modified_at, :utc_datetime
   end

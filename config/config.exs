@@ -25,6 +25,21 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :ueberauth, Ueberauth,
+  json_library: Jason,
+  providers: [
+    identity: {Ueberauth.Strategy.Identity, [callback_methods: ["POST"]]},
+    facebook: {Ueberauth.Strategy.Facebook, []}
+  ]
+
+config :imagex, Imagex.Auth.Guardian,
+  issuer: "imagex",
+  secret_key: "eyybqzMu3LJRYHGjKBl+GevxnGaXqjzZomabh9ax7zt5spp0rgYKWnPX4dSNN/8r"
+
+config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+  client_id: "1690946351207352",
+  client_secret: "0a7a5bc1f09fa8f0a71cfb1630e8bf3b"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

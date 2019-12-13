@@ -1,9 +1,9 @@
-defmodule Imagex.Schema.Account do
+defmodule Imagex.Schema.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "account" do
-    field :username, :string
+  schema "user" do
+    field :email, :string
     field :password, :string
     field :created_at, :utc_datetime
     field :modified_at, :utc_datetime
@@ -12,7 +12,7 @@ defmodule Imagex.Schema.Account do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:username, :password])
-    |> validate_required([:username, :password])
+    |> cast(attrs, [:email, :password])
+    |> validate_required([:email, :password])
   end
 end

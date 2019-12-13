@@ -2,7 +2,6 @@ defmodule ImagexWeb.BucketController do
   use ImagexWeb, :controller
 
   import ImagexWeb.Helpers
-  alias Imagex.Buckets
   alias Imagex.Schema.Bucket
 
   def index(conn, _attrs) do
