@@ -1,3 +1,4 @@
+import fetch from 'unfetch'
 import url from 'url'
 
 import { endpoint } from '~/config'
@@ -8,17 +9,13 @@ export const fetcher = async (
 ) => {
   const token = window.localStorage.getItem('access_token')
   const auth = token && { Authorization: `Bearer ${token}` }
-  try {
-    const r = await fetch(url.resolve(endpoint, pathname), {
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        ...auth,
-      },
-      ...options,
-    })
-    return r.json()
-  } catch (err) {
-    console.log(err)
-  }
+  const r = await fetch(url.resolve(endpoint, pathname), {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      ...auth,
+    },
+    ...options,
+  })
+  return r.json()
 }
